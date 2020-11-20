@@ -7,9 +7,24 @@
 
 import Foundation
 
-struct Category: Equatable, Identifiable {
-  let id: String
-  let title: String
-  let image: String
-  let description: String
+struct CategoriesResponse: Decodable {
+
+  let categories: [CategoryResponse]
+  
+}
+
+struct CategoryResponse: Decodable, Identifiable {
+
+  private enum CodingKeys: String, CodingKey {
+    case id = "idCategory"
+    case title = "strCategory"
+    case image = "strCategoryThumb"
+    case description = "strCategoryDescription"
+  }
+
+  var id: String = ""
+  var title: String = ""
+  var image: String = ""
+  var description: String = ""
+
 }

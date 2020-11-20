@@ -8,9 +8,7 @@
 import Foundation
 
 protocol Endpoint {
-
   var url: String { get }
-
 }
 
 enum Endpoints {
@@ -30,5 +28,4 @@ enum Endpoints {
       }
     }
   }
-  
 }

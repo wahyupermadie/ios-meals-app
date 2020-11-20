@@ -9,12 +9,11 @@ import SwiftUI
 
 @main
 struct TheMealsAppApp: App {
-    let persistenceController = PersistenceController.shared
-
+    let homeViewModel = Injection.init().provideViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            HomeView(viewModel: homeViewModel)
         }
     }
 }
