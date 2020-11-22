@@ -29,12 +29,14 @@ struct HomeView: View {
                                 navigateToDetailPage(for: category) {
                                     CategoryRow(category: category)
                                 }.buttonStyle(PlainButtonStyle())
-                            }
+                            }.padding(10)
                         }
                     }
                 }
             }.onAppear(perform: {
-                viewModel.fetchMealsCategories()
+                if self.viewModel.categoriesResult.isEmpty {
+                    viewModel.fetchMealsCategories()
+                }
             })
             .navigationBarTitle(
                 Text("Meals Apps")

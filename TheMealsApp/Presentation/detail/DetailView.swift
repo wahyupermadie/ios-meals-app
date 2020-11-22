@@ -6,12 +6,30 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct DetailView: View {
     var category: CategoryResponse
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading) {
+            WebImage(url: URL(string: self.category.image))
+                .resizable()
+                .frame(width: UIScreen.main.bounds.width - 32)
+                .scaledToFit()
+                .background(Color.random.opacity(0.3))
+                .cornerRadius(30)
+            
+            Text(self.category.title)
+                .font(.title)
+                .bold()
+            
+            Text(self.category.description)
+                .padding(.top, 16)
+            
+            Spacer()
+                
+        }.padding([.leading, .trailing], 16)
     }
 }
 
