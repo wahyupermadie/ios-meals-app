@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol HomeViewModel {
     func fetchMealsCategories()
@@ -23,22 +24,14 @@ class HomeViewModelImpl : HomeViewModel, ObservableObject {
     
     func fetchMealsCategories() {
         self.isLoading = true
-        mealsRepository.getMealsCategory{ [weak self] (result) in
-            guard let self = self else { return }
-            
-            var data: [CategoryResponse] = []
-            var error: String = ""
-            switch result {
-            case .success(let res):
-                data = res
-            case .failure(let err):
-                error = err.localizedDescription
-            }
-            DispatchQueue.main.async {
+        mealsRepository.getMealsCategory()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onSuccess: { result in
+                self.categoriesResult = result
                 self.isLoading = false
-                self.error = error
-                self.categoriesResult = data
-            }
-        }
+            },onError: { error in
+                self.error = error.localizedDescription
+                self.isLoading = false
+            })
     }
 }
